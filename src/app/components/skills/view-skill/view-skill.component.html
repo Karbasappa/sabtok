@@ -1,0 +1,74 @@
+<div class="row justify-content-center mt-4">
+  <div class="col-md-6 col-lg-5">
+    
+    <!-- Loading State -->
+    <div *ngIf="isLoading" class="text-center my-5">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <p class="text-muted mt-2">Loading profile details...</p>
+    </div>
+
+    <!-- Error Alert Banner -->
+    <div *ngIf="errorMessage && !isLoading" class="alert alert-danger shadow-sm border-0" role="alert">
+      <i class="bi bi-exclamation-triangle-fill me-2"></i>{{ errorMessage }}
+      <div class="mt-3">
+        <button class="btn btn-sm btn-outline-danger" [routerLink]="['/skills']">Back to Inventory</button>
+      </div>
+    </div>
+
+    <!-- Main Detail Card -->
+    <div *ngIf="!isLoading && skill" class="card shadow-sm border-0 rounded-3 overflow-hidden">
+      
+      <!-- Card Banner Header -->
+      <div class="card-header bg-dark text-white py-3 px-4 d-flex align-items-center justify-content-between">
+        <h5 class="mb-0 fw-bold">
+          <i class="bi bi-file-earmark-code me-2"></i>Skill Specification
+        </h5>
+        <span class="badge rounded-pill px-3 py-2" [ngClass]="getCategoryBadgeClass(skill.skillCategory)">
+          {{ skill.skillCategory }}
+        </span>
+      </div>
+
+      <!-- Card Core Information Field Rows -->
+      <div class="card-body p-4">
+        
+        <!-- Main Core Skill Field -->
+        <div class="mb-4">
+          <small class="text-uppercase text-muted fw-bold d-block mb-1 tracking-wider" style="font-size: 0.75rem;">Main Skill Domain</small>
+          <div class="d-flex align-items-center">
+            <div class="bg-light text-primary rounded px-2 py-1 me-2 fs-4">
+              <i class="bi bi-cpu"></i>
+            </div>
+            <h3 class="fw-bold text-dark mb-0">{{ skill.mainSkill }}</h3>
+          </div>
+        </div>
+
+        <hr class="text-muted opacity-25">
+
+        <!-- Sub Skill Competency Field -->
+        <div class="mb-3">
+          <small class="text-uppercase text-muted fw-bold d-block mb-2 tracking-wider" style="font-size: 0.75rem;">Sub-Skill Topic / Libraries</small>
+          <div class="p-3 bg-light rounded-3 border-0">
+            <i class="bi bi-tag-fill text-secondary me-2"></i>
+            <span class="text-dark fw-medium">{{ skill.subSkill }}</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Card Lower Action Footer Controls -->
+      <div class="card-footer bg-light px-4 py-3 d-flex justify-content-between border-top-0">
+        <button class="btn btn-outline-secondary btn-sm px-3" [routerLink]="['/skills']">
+          <i class="bi bi-arrow-left me-1"></i> Back to List
+        </button>
+        <button class="btn btn-primary btn-sm px-3" (click)="fetchSkillDetails()">
+          <i class="bi bi-arrow-clockwise me-1"></i> Refresh
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+

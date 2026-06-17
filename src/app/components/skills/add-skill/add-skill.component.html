@@ -1,0 +1,113 @@
+<div class="row justify-content-center">
+  <div class="col-md-6 col-lg-5">
+    
+    <!-- Server-Side Error Alert Banner -->
+    <div *ngIf="errorMessage" class="alert alert-danger alert-dismissible fade show mt-3 shadow-sm" role="alert">
+      <i class="bi bi-exclamation-triangle-fill me-2"></i>{{ errorMessage }}
+      <button type="button" class="btn-close" (click)="errorMessage = ''" aria-label="Close"></button>
+    </div>
+
+    <!-- Form Card Container -->
+    <div class="card shadow-sm border-0 rounded-3 mt-4">
+      
+      <div class="card-header bg-primary text-white text-center py-3 rounded-top-3">
+        <h4 class="mb-0 fw-bold">
+          <i class="bi bi-plus-circle-fill me-2"></i>Add New Skill
+        </h4>
+      </div>
+
+      <div class="card-body p-4">
+        <form #skillForm="ngForm" (ngSubmit)="onSubmit(skillForm)" novalidate>
+          
+          <!-- Main Skill Input Field -->
+          <div class="mb-3">
+            <label for="mainSkill" class="form-label fw-semibold text-secondary">Main Skill</label>
+            <div class="input-group">
+              <span class="input-group-text bg-light text-muted"><i class="bi bi-code-square"></i></span>
+              <input 
+                type="text" 
+                id="mainSkill" 
+                name="mainSkill" 
+                class="form-control" 
+                placeholder="e.g., Java, Angular, Python" 
+                ngModel
+                required
+                minlength="2"
+                #mainSkillInput="ngModel"
+                [class.is-invalid]="mainSkillInput.invalid && (mainSkillInput.touched || skillForm.submitted)">
+            </div>
+            <!-- Specialized Validation Error Labels -->
+            <div class="invalid-feedback" *ngIf="mainSkillInput.errors?.['required']">
+              Main skill name is required.
+            </div>
+            <div class="invalid-feedback" *ngIf="mainSkillInput.errors?.['minlength']">
+              Skill name must be at least 2 characters long.
+            </div>
+          </div>
+
+          <!-- Sub Skill Input Field -->
+          <div class="mb-3">
+            <label for="subSkill" class="form-label fw-semibold text-secondary">Sub Skill / Topic</label>
+            <div class="input-group">
+              <span class="input-group-text bg-light text-muted"><i class="bi bi-tags"></i></span>
+              <input 
+                type="text" 
+                id="subSkill" 
+                name="subSkill" 
+                class="form-control" 
+                placeholder="e.g., Stream API, RxJS, Pandas" 
+                ngModel
+                required
+                #subSkillInput="ngModel"
+                [class.is-invalid]="subSkillInput.invalid && (subSkillInput.touched || skillForm.submitted)">
+            </div>
+            <div class="invalid-feedback" *ngIf="subSkillInput.errors?.['required']">
+              Sub-skill topic is required.
+            </div>
+          </div>
+
+          <!-- Skill Category Dropdown -->
+         <div class="mb-4">
+  <label for="skillCategory" class="form-label fw-semibold text-secondary">Skill Category</label>
+  <div class="input-group">
+    <span class="input-group-text bg-light text-muted"><i class="bi bi-layers"></i></span>
+    <select 
+      id="skillCategory" 
+      name="skillCategory" 
+      class="form-select" 
+      ngModel
+      required
+      #categoryInput="ngModel"
+      [class.is-invalid]="categoryInput.invalid && (categoryInput.touched || skillForm.submitted)">
+      <option value="" disabled selected>
+        {{ isCategoriesLoading ? 'Loading categories...' : 'Select category...' }}
+      </option>
+      <!-- Dynamically rendering data from backend call -->
+      <option *ngFor="let category of categories" [value]="category">
+        {{ category }}
+      </option>
+    </select>
+  </div>
+  <div class="invalid-feedback" *ngIf="categoryInput.errors?.['required']">
+    Please choose a category from the dropdown list.
+  </div>
+</div>
+
+          <!-- Action Buttons -->
+          <div class="d-grid gap-2 d-md-flex justify-content-md-end pt-2 border-top">
+            <button type="button" class="btn btn-outline-secondary px-4" [routerLink]="['/skills']" [disabled]="isSubmitting">
+              Cancel
+            </button>
+            <button type="submit" class="btn btn-primary px-4" [disabled]="skillForm.invalid || isSubmitting">
+              <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+              <i *ngIf="!isSubmitting" class="bi bi-check-lg me-1"></i> Save Skill
+            </button>
+          </div>
+
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+

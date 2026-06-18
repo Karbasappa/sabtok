@@ -16,7 +16,7 @@ export const routes: Routes = [
     path: 'skills/skill-list', 
     component: ListSkillComponent 
   },
-   { path: 'skills/view/:id', component: ViewSkillComponent },
+   { path: 'skills/view/:mainSkill', component: ViewSkillComponent },
     { path: 'topic/create', component: CreateTopicComponent },
     { path: 'topics/update/:id', component: UpdateTopicComponent },
     { path: 'topics/view/:id', component: ViewTopicComponent },

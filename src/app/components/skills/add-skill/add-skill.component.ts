@@ -50,7 +50,7 @@ export class AddSkillComponent implements OnInit {
     this.remoteService.postStringData('skill/add', JSON.stringify(newSkill)).subscribe({
       next: (response) => {
         this.isSubmitting = false;
-        this.router.navigate(['/skills']); // Redirect to the list view on success
+        this.router.navigate(['/skills/add']); // Redirect to the list view on success
       },
       error: (error) => {
         this.isSubmitting = false;

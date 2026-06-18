@@ -12,10 +12,11 @@ import { Skill } from '../../../models/skill';
   styleUrls: ['./view-skill.component.scss']
 })
 export class ViewSkillComponent implements OnInit {
-  skillId!: number;
-  skill: Skill | null = null;
+  mainSkill!: string;
+ skills: Skill[] = []; 
   isLoading: boolean = true;
   errorMessage: string = '';
+Array: any;
 
   constructor(
     private readonly route: ActivatedRoute,
@@ -24,10 +25,10 @@ export class ViewSkillComponent implements OnInit {
 
   ngOnInit(): void {
     // Extract the dynamic ':id' route parameter from the URL string path
-    const idParam = this.route.snapshot.paramMap.get('id');
+    const skillParam = this.route.snapshot.paramMap.get('mainSkill');
     
-    if (idParam) {
-      this.skillId = +idParam;
+    if (skillParam) {
+      this.mainSkill = skillParam;
       this.fetchSkillDetails();
     } else {
       this.isLoading = false;
@@ -40,9 +41,9 @@ export class ViewSkillComponent implements OnInit {
     this.errorMessage = '';
 
     // Adjust 'skills/' string signature path to match your target backend API mapping layout
-    this.remoteService.getData(`skill/${this.skillId}`).subscribe({
-      next: (data: Skill) => {
-        this.skill = data;
+    this.remoteService.getData(`skill/name/${this.mainSkill}`).subscribe({
+      next: (data: Skill[]) => {
+        this.skills = data;
         this.isLoading = false;
       },
       error: (err) => {

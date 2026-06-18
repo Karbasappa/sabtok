@@ -23,7 +23,6 @@ export class ListSkillComponent implements OnInit {
 
   loadSkills(): void {
     this.isLoading = true;
-    // Replace 'skills' with your exact backend API mapping path if different
     this.remoteService.getData('skill/list').subscribe({
       next: (data: Skill[]) => {
         this.skills = data;

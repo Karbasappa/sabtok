@@ -1,25 +1,40 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { RemoteCallService } from '../../../backend/backend.service';
 import { Topic } from '../../../models/topic';
+import { AgGridAngular } from 'ag-grid-angular';
+import { GridOptions } from 'ag-grid-community';
 
 @Component({
   selector: 'app-view-topic',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule,AgGridAngular],
   templateUrl: './view-topic.component.html',
   styleUrls: ['./view-topic.component.scss']
 })
 export class ViewTopicComponent implements OnInit {
   topicId!: number;
   topic: Topic | null = null;
-  isLoading = true;
-  errorMessage = '';
+   subTopics: any[] = [];
+      defaultColDef: any = {
+          resizable: true,
+      };
+      rowSelection: any = 'multiple';
+      public pagination =true
+      public componentsGridOptions:GridOptions | undefined;
+      public paginationPageSize = 10;
+       columnDefs: any = [
+      {headerName: 'Topic Id', field: 'topicId', filter: true   },
+      {headerName: 'Topic Name', field: 'name', filter: true  },
+       {headerName: 'Rating', field: 'rating', filter: true  }
+    ];
+  
 
   constructor(
     private readonly route: ActivatedRoute,
-    private readonly remoteService: RemoteCallService
+    private readonly remoteService: RemoteCallService,
+    private readonly router: Router
   ) {}
 
   ngOnInit(): void {
@@ -27,26 +42,26 @@ export class ViewTopicComponent implements OnInit {
     if (idParam) {
       this.topicId = +idParam;
       this.fetchTopicDetails();
-    } else {
-      this.isLoading = false;
-      this.errorMessage = 'Invalid topic identification parameter reference mapping.';
     }
   }
 
   fetchTopicDetails(): void {
-    this.isLoading = true;
-    this.errorMessage = '';
-
     this.remoteService.getData(`topic/${this.topicId}`).subscribe({
       next: (data: Topic) => {
         this.topic = data;
-        this.isLoading = false;
-      },
-      error: (err) => {
-        console.error('Error loading detailed topic hierarchy view:', err);
-        this.errorMessage = 'Failed to load topic specifications. It may have been relocated or deleted.';
-        this.isLoading = false;
+          this.subTopics = data.subTopicSet;  
       }
     });
   }
+
+  
+   onRowSelected(event: any) {
+        //   window.alert(
+        //       'row ' +
+         //        event.node.data.rowNo +
+         //        ' selected = ' +
+          //       event.node.isSelected()
+         //    );
+             this.router.navigate(['/topics/update/' + this.topicId]);
+         }
 }

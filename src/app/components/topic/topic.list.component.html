@@ -1,9 +1,8 @@
-<h3>Topic : {{ topic?.name }}</h3>
 <ag-grid-angular
 style="width: 80%; height: 500px;"
      class="ag-theme-alpine"
      [defaultColDef]="defaultColDef"
-    [rowData]="subTopics"
+    [rowData]="rowData"
      [columnDefs]="columnDefs"
      [rowSelection]="rowSelection"
          (rowSelected)="onRowSelected($event)"
@@ -13,3 +12,5 @@ style="width: 80%; height: 500px;"
     
      >
 </ag-grid-angular>
+
+<app-topic-viewer *ngIf="isTopicSelected" [topic]="selectedTopic"></app-topic-viewer>

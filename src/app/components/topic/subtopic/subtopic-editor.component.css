@@ -1,0 +1,42 @@
+:root {
+  --muted: #6b7280;
+  --accent: #2563eb;
+  --danger: #ef4444;
+  --border: #e5e7eb;
+  --radius: 8px;
+}
+.editor {
+  max-width: 760px;
+  margin: 12px 0;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: #fff;
+  display: grid;
+  gap: 10px;
+  font-family: system-ui, Roboto, Arial;
+}
+.row { display:flex; flex-direction:column; gap:6px; }
+.grid {
+  display:grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap:10px;
+}
+.col { display:flex; flex-direction:column; gap:6px; }
+label { font-weight:600; }
+input[type="text"], input[type="number"], textarea {
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  font-size: 14px;
+  box-sizing: border-box;
+}
+.actions { display:flex; gap:8px; align-items:center; }
+button { background: var(--accent); color: #fff; border: none; padding: 8px 10px; border-radius: 6px; cursor: pointer; font-weight:600; }
+button.ghost { background: transparent; color: var(--muted); border: 1px solid var(--border); padding:6px 8px; }
+button.danger { background: var(--danger); }
+.error { color: #b91c1c; font-size: 13px; }
+.preview { border-top: 1px solid var(--border); padding-top: 8px; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace; font-size: 13px; }
+@media (max-width:720px) {
+  .grid { grid-template-columns: 1fr; }
+}

@@ -1,0 +1,80 @@
+<div class="dashboard-container">
+  <h2>Topics Overview Dashboard</h2>
+
+  <div *ngIf="isLoading" class="loading">Loading dashboard elements...</div>
+  <div *ngIf="errorMessage" class="error-msg">{{ errorMessage }}</div>
+
+  <!-- FIXED: Added class condition for ratings below 3 -->
+  <div class="skill-section" 
+       *ngFor="let skill of skillsData | keyvalue" 
+       [class.is-skill-open]="isSkillExpanded(skill.key)"
+       [class.low-rating-skill]="getSkillRating(skill.value) > 0 && getSkillRating(skill.value) < 3">
+    
+    <div class="skill-header" (click)="toggleSkill(skill.key)" role="button" tabindex="0">
+      <div class="title-area">
+        <span class="chevron skill-chevron"></span>
+        <h3>{{ skill.key }}</h3>
+        
+        <div class="overall-rating" *ngIf="getSkillRating(skill.value) > 0" (click)="$event.stopPropagation()">
+          <span class="stars">
+            <span *ngFor="let star of getStars(getSkillRating(skill.value))" [class.filled]="star === '★'">{{ star }}</span>
+          </span>
+          <span class="rating-num">({{ getSkillRating(skill.value) }}/5)</span>
+        </div>
+        <span class="no-rating-msg" *ngIf="getSkillRating(skill.value) === 0">Unrated</span>
+
+        <!-- NEW: Critical visual alert tag -->
+        <span class="alert-tag" *ngIf="getSkillRating(skill.value) > 0 && getSkillRating(skill.value) < 3">Attention Needed</span>
+      </div>
+      <span class="badge">{{ skill.value.length }} Topics</span>
+    </div>
+
+    <div class="skill-body">
+      <div class="topics-grid">
+        
+        <div class="topic-card" *ngFor="let topic of skill.value" [class.is-open]="isTopicExpanded(topic.id)">
+          
+          <div class="topic-card-header" (click)="toggleTopic(topic.id)" role="button" tabindex="0">
+            <div class="title-area">
+              <span class="chevron"></span>
+              <h4>{{ topic.name }}</h4>
+              
+              <div class="topic-rating" *ngIf="getTopicRating(topic) > 0">
+                <span class="stars inline-stars">
+                  <span *ngFor="let star of getStars(getTopicRating(topic))" [class.filled]="star === '★'">{{ star }}</span>
+                </span>
+                <span class="rating-num-small">({{ getTopicRating(topic) }})</span>
+              </div>
+              <span class="no-rating-msg-small" *ngIf="getTopicRating(topic) === 0">Unrated</span>
+            </div>
+            <span class="meta-id">ID: {{ topic.id }}</span>
+          </div>
+
+          <div class="topic-card-body">
+            <p class="timestamp">Updated: {{ topic.updatedAt | date:'short' }}</p>
+
+            <div class="subtopics-box">
+              <h5>Subtopics ({{ topic.subTopicSet?.length || 0 }})</h5>
+              <div class="subtopic-item" *ngFor="let sub of topic.subTopicSet">
+                <div class="subtopic-main">
+                  <span class="subtopic-name">{{ sub.name }}</span>
+                  <span class="rating" *ngIf="sub.rating">★ {{ sub.rating }}/5</span>
+                </div>
+                
+                <div class="subtopic-stats" *ngIf="sub.noOfAttempts !== null">
+                  <span>Attempts: <strong>{{ sub.noOfAttempts }}</strong></span>
+                  <span class="pass">Passed: {{ sub.passedNumber }}</span>
+                  <span class="fail">Failed: {{ sub.failedNumber }}</span>
+                </div>
+                <p class="notes" *ngIf="sub.notes">* Note: {{ sub.notes }}</p>
+              </div>
+            </div>
+          </div>
+
+        </div> 
+        
+      </div>
+    </div> 
+
+  </div>
+</div>

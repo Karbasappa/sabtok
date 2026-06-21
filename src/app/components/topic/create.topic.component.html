@@ -1,0 +1,60 @@
+<form [formGroup]="topicForm" (ngSubmit)="submit()" class="form">
+  <div class="field">
+    <label for="name">Topic name</label>
+    <input id="name" formControlName="name" type="text" placeholder="Advanced Java Core Features" />
+    <div class="error" *ngIf="name.invalid && (name.dirty || name.touched)">
+      <div *ngIf="name.errors?.['required']">Topic name is required.</div>
+      <div *ngIf="name.errors?.['maxLength'] || name.errors?.['maxlength']">Max length exceeded.</div>
+    </div>
+  </div>
+    <!-- NEW: skillName input -->
+  <div class="field">
+    <label for="skillName">Skill name</label>
+    <select id="skillName" formControlName="skillName">
+      <option value="">Select a skill</option>
+      <option *ngFor="let skill of skills" [value]="skill">
+        {{ skill }}
+      </option>
+    </select>
+    <div class="error" *ngIf="skillName.invalid && (skillName.dirty || skillName.touched)">
+      <div *ngIf="skillName.errors?.['required']">Skill name is required.</div>
+      <div *ngIf="skillName.errors?.['maxlength']">Max length exceeded.</div>
+    </div>
+  </div>
+
+
+  <div class="field header-row"> 
+    <div class="actions">
+      <button type="button" class="ghost" (click)="addTemplate()">Add template</button>
+    </div>
+  </div>
+
+  <div formArrayName="subTopicSet" class="subtopics">
+    <div class="subtopic" *ngFor="let sub of controls(); let i = index" [formGroupName]="i">
+      <div class="main">
+        <label>Name</label>
+        <input formControlName="name" type="text" placeholder="e.g. Generics and Type Erasure" />
+        <div class="error" *ngIf="sub.get('name')?.invalid && (sub.get('name')?.touched || sub.get('name')?.dirty)">
+          <div *ngIf="sub.get('name')?.errors?.['required']">Name required.</div>
+        </div>
+
+        <label>No of Attempts</label>
+        <input formControlName="noOfAttempts" type="text"/>
+        <label>Passed</label>
+        <input formControlName="passedNumber" type="text"/>
+        <label>Failed</label>
+        <input formControlName="failedNumber" type="text"  />
+        <label>Rating</label>
+        <input formControlName="rating" type="text" />
+         <label>Notes <span class="optional">(optional)</span></label>
+        <textarea formControlName="notes" rows="2" placeholder="Short notes..."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="meta">
+    <div class="submit-area">
+      <button type="submit" class="ghost" (click)="addTopic()">Create Topic</button>
+      <button type="button" class="ghost" (click)="topicForm.reset(); subTopicSet.clear(); addSubtopic()">Reset</button>
+    </div>
+  </div>

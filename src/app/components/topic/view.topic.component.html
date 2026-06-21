@@ -1,0 +1,27 @@
+<div class="viewer-container" *ngIf="topic">
+  <!-- Header Bar -->
+  <div class="viewer-header">
+    <h3>Topic Data Preview: {{ topic.name || 'Untitled' }}</h3>
+  </div>
+
+  <!-- Structured Summary View -->
+  <div class="summary-card">
+    <div class="meta-grid">
+      <div><strong>Topic ID:</strong> {{ topic.id }}</div>
+      <div><strong>Skill Name:</strong> {{ topic.skillName || 'N/A' }}</div>
+      <div><strong>Status:</strong> {{ topic.status }}</div>
+      <div><strong>Updated At:</strong> {{ topic.updatedAt | date:'medium' }}</div>
+    </div>
+
+    <!-- Nested Subtopics Quick View -->
+    <div class="subtopics-summary" *ngIf="topic.subTopicSet?.length">
+      <h4>Subtopics ({{ topic.subTopicSet.length }})</h4>
+      <ul>
+        <li *ngFor="let sub of topic.subTopicSet">
+          <strong>{{ sub.name }}</strong> (ID: {{ sub.id }}) — 
+          Rating: {{ sub.rating || 'Unrated' }} ★ | 
+          Attempts: {{ sub.noOfAttempts || 0 }}
+        </li>
+      </ul>
+    </div>
+  </div>

@@ -8,8 +8,7 @@ import { Skill } from '../../../models/skill';
   selector: 'app-view-skill',
   standalone: true,
   imports: [CommonModule, RouterModule],
-  templateUrl: './view-skill.component.html',
-  styleUrls: ['./view-skill.component.scss']
+  templateUrl: './view-skill.component.html'
 })
 export class ViewSkillComponent implements OnInit {
   mainSkill!: string;

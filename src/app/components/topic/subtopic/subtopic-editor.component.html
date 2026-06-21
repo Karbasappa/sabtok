@@ -1,0 +1,58 @@
+<form [formGroup]="form" class="editor" (ngSubmit)="save()">
+  <div class="row">
+    <label for="name">Name *</label>
+    <input id="name" formControlName="name" type="text" />
+    <div class="error" *ngIf="name.invalid && (name.touched || name.dirty)">
+      <div *ngIf="name.errors?.['required']">Name is required.</div>
+      <div *ngIf="name.errors?.['maxlength']">Max length exceeded.</div>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="col">
+      <label for="topicId">Topic ID</label>
+      <input id="topicId" formControlName="topicId" type="number" />
+    </div>
+
+    <div class="col">
+      <label for="noOfAttempts">No. of Attempts</label>
+      <input id="noOfAttempts" formControlName="noOfAttempts" type="number" min="0" />
+    </div>
+
+    <div class="col">
+      <label for="passedNumber">Passed Number</label>
+      <input id="passedNumber" formControlName="passedNumber" type="number" min="0" />
+    </div>
+
+    <div class="col">
+      <label for="failedNumber">Failed Number</label>
+      <input id="failedNumber" formControlName="failedNumber" type="number" min="0" />
+    </div>
+  </div>
+
+  <div class="row">
+    <label for="rating">Rating (0-5)</label>
+    <input id="rating" formControlName="rating" type="number" min="0" max="5" />
+    <div class="error" *ngIf="rating.invalid && (rating.touched || rating.dirty)">
+      <div *ngIf="rating.errors?.['min'] || rating.errors?.['max']">Rating must be between 0 and 5.</div>
+    </div>
+  </div>
+
+  <div class="row">
+    <label for="notes">Notes</label>
+    <textarea id="notes" formControlName="notes" rows="4"></textarea>
+  </div>
+
+  <!-- FIXED: Actions are uncommented and use the correct methods -->
+  <div class="actions">
+    <button type="submit" [disabled]="form.invalid || saving">
+      {{ saving ? 'Saving...' : (form.get('id')?.value ? 'Save' : 'Create') }}
+    </button>
+    <button type="button" class="ghost" (click)="cancel()">Cancel</button>
+    <button *ngIf="showDelete && form.get('id')?.value" type="button" class="danger" (click)="remove()" [disabled]="deleting">
+      {{ deleting ? 'Deleting...' : 'Delete' }}
+    </button>
+  </div>
+
+  <div class="error" *ngIf="error" role="alert">{{ error }}</div>
+</form>

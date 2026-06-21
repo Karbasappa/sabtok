@@ -1,59 +1,59 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-import { RemoteCallService } from '../../../backend/backend.service';
-import { Skill } from '../../../models/skill';
+import { FormsModule } from '@angular/forms';
+import { RemoteCallService } from '../../../backend/backend.service'; 
+import { GridOptions } from 'ag-grid-community';
+import { AgGridAngular } from 'ag-grid-angular';
+
 
 @Component({
-  selector: 'app-list-skill',
+  selector: 'app-skill-list',
   standalone: true,
-  imports: [CommonModule, RouterModule],
-  templateUrl: './list-skill.component.html',
-  styleUrls: ['./list-skill.component.scss']
+  imports: [CommonModule, RouterModule, FormsModule,AgGridAngular],
+  templateUrl: './list-skill.component.html'
 })
-export class ListSkillComponent implements OnInit {
-  skills: Skill[] = [];
-  isLoading: boolean = true;
+export class SkillLstComponent implements OnInit {
 
-  constructor(private readonly remoteService: RemoteCallService) {}
+   rowData = [];
+    defaultColDef: any = {
+        resizable: true,
+    };
+    rowSelection: any = 'multiple';
+    public pagination =true
+    public componentsGridOptions: GridOptions | undefined;
+    public paginationPageSize = 10;
+    columnDefs: any = [
+		{headerName: 'Skill Id', field: 'id', filter: true   },
+        {headerName: 'mainSkill', field: 'mainSkill', filter: true  },
+        {headerName: 'subSkill', field: 'subSkill', filter: true  },
+        {headerName: 'skillCategory', field: 'skillCategory', filter: true  },
+        {headerName: 'rating', field: 'rating', filter: true  }
+	];
+
+  constructor(private remoteCallService: RemoteCallService, private router: Router) { }
 
   ngOnInit(): void {
-    this.loadSkills();
-  }
-
-  loadSkills(): void {
-    this.isLoading = true;
-    this.remoteService.getData('skill/list').subscribe({
-      next: (data: Skill[]) => {
-        this.skills = data;
-        this.isLoading = false;
+    this.remoteCallService.getData('skill/list').subscribe(
+      (response) => {
+        this.rowData = response;
       },
-      error: (err) => {
-        console.error('Error fetching skills:', err);
-        this.isLoading = false;
+      (error) => {
+        console.error('Error fetching skills:', error);
       }
-    });
+    );
   }
 
-  // Maps individual Skill Categories into different Bootstrap alert colors dynamically
-  getCategoryBadgeClass(category: string): string {
-    switch (category?.toUpperCase()) {
-      case 'BACKEND': return 'bg-dark text-white';
-      case 'FRONTEND': return 'bg-info text-dark';
-      case 'DATABASE': return 'bg-warning text-dark';
-      case 'DEVOPS': return 'bg-purple text-white'; // Custom scss class or fallback
-      default: return 'bg-secondary text-white';
-    }
-  }
+   onRowSelected(event: any) {
+        //   window.alert(
+        //       'row ' +
+         //        event.node.data.rowNo +
+         //        ' selected = ' +
+          //       event.node.isSelected()
+         //    );
+             this.router.navigate(['/view-skill/' + event.node.data.mainSkill]);
+         }
 
-  onDeleteSkill(id?: number): void {
-    if (!id) return;
-    if (confirm('Are you sure you want to permanently delete this skill?')) {
-      // Assuming your service supports delete operations or replace with putStringData mapping
-      this.remoteService.putStringData(`skills/delete/${id}`, '').subscribe({
-        next: () => this.loadSkills(), // Refresh list on success
-        error: (err) => console.error('Error deleting skill:', err)
-      });
-    }
-  }
+      
+  
 }

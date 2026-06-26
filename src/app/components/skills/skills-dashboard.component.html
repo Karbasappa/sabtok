@@ -1,10 +1,9 @@
 <div class="dashboard-container">
-  <h2>Topics Overview Dashboard</h2>
+  <h2>Skills Overview Dashboard</h2>
 
   <div *ngIf="isLoading" class="loading">Loading dashboard elements...</div>
   <div *ngIf="errorMessage" class="error-msg">{{ errorMessage }}</div>
 
-  <!-- FIXED: Added class condition for ratings below 3 -->
   <div class="skill-section" 
        *ngFor="let skill of skillsData | keyvalue" 
        [class.is-skill-open]="isSkillExpanded(skill.key)"
@@ -22,8 +21,6 @@
           <span class="rating-num">({{ getSkillRating(skill.value) }}/5)</span>
         </div>
         <span class="no-rating-msg" *ngIf="getSkillRating(skill.value) === 0">Unrated</span>
-
-        <!-- NEW: Critical visual alert tag -->
         <span class="alert-tag" *ngIf="getSkillRating(skill.value) > 0 && getSkillRating(skill.value) < 3">Attention Needed</span>
       </div>
       <span class="badge">{{ skill.value.length }} Topics</span>
@@ -55,9 +52,16 @@
 
             <div class="subtopics-box">
               <h5>Subtopics ({{ topic.subTopicSet?.length || 0 }})</h5>
-              <div class="subtopic-item" *ngFor="let sub of topic.subTopicSet">
+              
+              <!-- FIXED: Turned subtopic item card into an interactive editing hyperlink link -->
+              <div class="subtopic-item subtopic-link" 
+                   *ngFor="let sub of topic.subTopicSet" 
+                   (click)="onSubtopicClick(sub)"
+                   role="link" 
+                   title="Click to edit this subtopic"
+                   tabindex="0">
                 <div class="subtopic-main">
-                  <span class="subtopic-name">{{ sub.name }}</span>
+                  <span class="subtopic-name-link">{{ sub.name }} <span class="edit-icon">✎</span></span>
                   <span class="rating" *ngIf="sub.rating">★ {{ sub.rating }}/5</span>
                 </div>
                 
@@ -68,6 +72,7 @@
                 </div>
                 <p class="notes" *ngIf="sub.notes">* Note: {{ sub.notes }}</p>
               </div>
+              
             </div>
           </div>
 
@@ -78,3 +83,22 @@
 
   </div>
 </div>
+<!-- ... Keep all your previous skill / topic dashboard layout markup exactly identical ... -->
+
+<!-- NEW: Native Pop-up Dialog Element Panel Layer -->
+<dialog #modalElement class="editor-modal" (cancel)="closeModal()">
+  <div class="modal-header">
+    <h3>Edit Subtopic Component</h3>
+    <button type="button" class="close-x-btn" (click)="closeModal()">&times;</button>
+  </div>
+  
+  <div class="modal-body" *ngIf="selectedSubtopic">
+    <!-- Embedded Form Component Instance mapping incoming events -->
+    <app-subtopic-editor 
+      [subtopic]="selectedSubtopic"
+      (saved)="onEditorSave($event)"
+      (cancelled)="closeModal()">
+    </app-subtopic-editor>
+  </div>
+</dialog>
+

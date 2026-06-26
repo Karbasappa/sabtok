@@ -1,31 +1,39 @@
-/* NEW: Highlight rules for skills tracking below 3.0 */
-.skill-section.low-rating-skill {
-  border-left: 4px solid #e53e3e; /* Red border focus indicator */
-  background: #fffafb; /* Subtle red-tinted background canvas */
+/* NEW: Hyperlink and Edit Interaction Layout Styles */
+.subtopic-link {
+  cursor: pointer !important;
+  transition: all 0.15s ease-in-out;
+  border-left: 3px solid #cbd5e0;
 }
 
-.skill-section.low-rating-skill .overall-rating {
-  border-color: #feb2b2;
-  background: #fff5f5;
+.subtopic-link:hover {
+  background: #f7fafc !important;
+  border-color: #3182ce; /* Highlight blue border color shift on active hover */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
-.skill-section.low-rating-skill .overall-rating .stars .filled {
-  color: #e53e3e; /* Turn stars red to reflect trouble status */
+.subtopic-name-link {
+  color: #2b6cb0; /* Anchor blue style print color mapping */
+  text-decoration: none;
 }
 
-.alert-tag {
-  background: #fed7d7;
-  color: #c53030;
-  padding: 1px 5px;
-  border-radius: 3px;
+.subtopic-link:hover .subtopic-name-link {
+  text-decoration: underline;
+}
+
+.edit-icon {
   font-size: 8px;
-  font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-left: 6px;
+  color: #a0aec0;
+  margin-left: 2px;
+  display: inline-block;
+  opacity: 0.6;
 }
 
-/* --- Base Layout & Small Typography System --- */
+.subtopic-link:hover .edit-icon {
+  color: #3182ce;
+  opacity: 1;
+}
+
+/* --- Base Layout & Small Typography Matrix Base System --- */
 .dashboard-container { padding: 16px; background-color: #f4f6f9; font-family: system-ui, -apple-system, sans-serif; font-size: 11px; }
 .dashboard-container h2 { font-size: 14px; margin: 0 0 12px 0; }
 .chevron { width: 0; height: 0; border-top: 4px solid transparent; border-bottom: 4px solid transparent; border-left: 5px solid #4a5568; transition: transform 0.2s ease-in-out; display: inline-block; }
@@ -64,3 +72,10 @@
 .pass { color: #38a169; }
 .fail { color: #e53e3e; }
 .notes { margin: 2px 0 0 0; font-size: 9px; color: #4a5568; font-style: italic; }
+.skill-section.low-rating-skill { border-left: 4px solid #e53e3e; background: #fffafb; }
+.skill-section.low-rating-skill .overall-rating { border-color: #feb2b2; background: #fff5f5; }
+.skill-section.low-rating-skill .overall-rating .stars .filled { color: #e53e3e; }
+.alert-tag { background: #fed7d7; color: #c53030; padding: 1px 5px; border-radius: 3px; font-size: 8px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px; margin-left: 6px; }
+.loading, .error-msg { font-size: 11px; padding: 8px; }
+
+

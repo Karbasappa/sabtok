@@ -45,7 +45,7 @@
 
   <!-- FIXED: Actions are uncommented and use the correct methods -->
   <div class="actions">
-    <button type="submit" [disabled]="form.invalid || saving">
+    <button type="submit" >
       {{ saving ? 'Saving...' : (form.get('id')?.value ? 'Save' : 'Create') }}
     </button>
     <button type="button" class="ghost" (click)="cancel()">Cancel</button>

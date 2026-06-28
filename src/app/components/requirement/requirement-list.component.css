@@ -1,94 +1,25 @@
-/* Container and Card Enhancements */
-.card {
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-.tracking-wider {
-  letter-spacing: 0.05em;
-}
-
-/* Custom Table Layout Adjustments */
-.table-responsive {
-  border-radius: 0 0 8px 8px;
-}
-
-/* Fixed Header Logic on Scroll */
-.sticky-top {
-  position: sticky;
-  top: 0;
-  background-color: #f8f9fa !important;
-  z-index: 10;
-  box-shadow: inset 0 -2px 0 #dee2e6;
-}
-
-th {
-  font-size: 0.85rem;
-  font-weight: 700;
-  text-uppercase: true;
-  letter-spacing: 0.5px;
+/* Pagination Layout Polishing Rules */
+.pagination .page-link {
   color: #495057;
-  padding: 12px 8px;
+  padding: 0.375rem 0.75rem;
+  background-color: #ffffff;
+  transition: all 0.1s ease-in-out;
 }
 
-td {
-  padding: 14px 8px;
-  font-size: 0.9rem;
+.pagination .page-item.active .page-link {
+  background-color: #212529 !important;
+  border-color: #212529 !important;
+  color: #ffffff !important;
 }
 
-/* Smooth Row Hover Transitions */
-tbody tr {
-  transition: background-color 0.15s ease-in-out;
-}
-
-tbody tr:hover {
-  background-color: rgba(248, 249, 250, 0.85) !important;
-}
-
-/* Precise Text Truncation Handling */
-.text-truncate {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-/* Button Group Alignment Customizations */
-.btn-group .btn {
-  padding: 0.25rem 0.5rem;
-  font-size: 0.875rem;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.btn-group .btn:first-child {
-  border-top-left-radius: 4px;
-  border-bottom-left-radius: 4px;
-}
-
-.btn-group .btn:last-child {
-  border-top-right-radius: 4px;
-  border-bottom-right-radius: 4px;
-}
-
-/* Micro Typography Helpers */
-.extra-small {
-  font-size: 0.7rem;
-  opacity: 0.75;
-}
-
-/* Shadow Layering */
-.shadow-xs {
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-}
-
-/* Input Group Polish */
-.input-group-text {
+.pagination .page-item.disabled .page-link {
+  background-color: #f8f9fa;
   color: #6c757d;
-  font-size: 0.9rem;
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
-.form-control:focus {
-  box-shadow: none;
-  border-color: #dee2e6;
+.pagination .page-link:hover:not(:disabled) {
+  background-color: #e9ecef;
+  color: #000000;
 }

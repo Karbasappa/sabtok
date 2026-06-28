@@ -6,6 +6,7 @@ import { CreateTopicComponent } from './components/topic/create.topic.component'
 import { TopicListComponent } from './components/topic/topic.list.component';
 import { SubtopicEditorComponent } from './components/topic/subtopic/subtopic-editor.component';
 import { SkillsDashboardComponent } from './components/skills/skills-dashboard.component';
+import { CreateSubTopicComponent } from './components/topic/subtopic/create-subtopic.component';
 
 
 export const routes: Routes = [
@@ -17,5 +18,6 @@ export const routes: Routes = [
   {path: 'view-skill/:mainSkill', component: ViewSkillComponent},
   {path:'topic/create',component:CreateTopicComponent},
   {path:'topics',component:SkillsDashboardComponent},
-  {path: 'topic/edit-subtopic/:id', component: SubtopicEditorComponent }
+  {path: 'topic/edit-subtopic/:id', component: SubtopicEditorComponent },
+  {path:'crete-subtopic', component: CreateSubTopicComponent}
 ];

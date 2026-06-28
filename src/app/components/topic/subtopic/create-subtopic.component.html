@@ -1,0 +1,16 @@
+<div class="topic-container">
+  <div class="edit-form">
+    <select [(ngModel)]="topic.topicId" name="topicId" required>
+        <option *ngFor="let topic of topicNames | keyvalue" [value]="topic.key">
+            {{ topic.value }}
+        </option>
+    </select>
+    <input type="text" [(ngModel)]="topic.name" name="name" placeholder="Subtopic Name" required>
+    <textarea [(ngModel)]="topic.notes" name="notes" placeholder="Subtopic Notes" required>
+
+    </textarea>
+  <button (click)="addSubtopic()">Save</button>
+  </div>
+</div>  
+
+

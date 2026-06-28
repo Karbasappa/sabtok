@@ -1,0 +1,29 @@
+.topic-container {
+  max-width: 400px;
+  margin: 20px auto;
+  font-family: Arial, sans-serif;
+}
+.view-card, .edit-form {
+  border: 1px solid #ccc;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+label {
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
+}
+input, textarea {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  box-sizing: border-box;
+}
+button {
+  margin-top: 15px;
+  padding: 10px 15px;
+  cursor: pointer;
+}
+.save-btn { background-color: #4CAF50; color: white; border: none; margin-right: 10px; }
+.cancel-btn { background-color: #f44336; color: white; border: none; }

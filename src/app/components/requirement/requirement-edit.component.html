@@ -1,0 +1,113 @@
+<div class="container mt-4">
+  <div class="card shadow-sm border-0">
+    <div class="card-header bg-dark text-white py-3">
+      <h3 class="mb-0 fs-5 text-uppercase tracking-wider">✏️ Edit Requirement Details</h3>
+    </div>
+    <div class="card-body bg-light">
+      <form [formGroup]="requirementForm" (ngSubmit)="onSubmit()">
+        
+        <!-- System Identifier -->
+        <div class="mb-3 col-md-4">
+          <label for="id" class="form-label text-muted small fw-bold">Requirement ID Reference</label>
+          <input type="text" id="id" class="form-control bg-white" formControlName="id">
+        </div>
+
+        <!-- Description -->
+        <div class="mb-3">
+          <label for="description" class="form-label fw-medium">Description*</label>
+          <textarea id="description" class="form-control" formControlName="description" rows="3"
+            [ngClass]="{'is-invalid': requirementForm.get('description')?.touched && requirementForm.get('description')?.invalid}"></textarea>
+          <div class="invalid-feedback">Description field requires input validation check parameters.</div>
+        </div>
+
+        <div class="row">
+          <!-- Core Skill Select Menu -->
+          <div class="col-md-6 mb-3">
+            <label for="skill" class="form-label fw-medium">Core Skill*</label>
+            <select id="skill" class="form-control form-select" formControlName="skill"
+              [ngClass]="{'is-invalid': requirementForm.get('skill')?.touched && requirementForm.get('skill')?.invalid}">
+              <option value="" disabled>Select a core skill mapping</option>
+              <option *ngFor="let skill of skillOptions" [value]="skill">{{ skill }}</option>
+            </select>
+            <div class="invalid-feedback">Skill targeting parameter selection required.</div>
+          </div>
+          
+          <!-- Sub Skill Select Menu -->
+          <div class="col-md-6 mb-3">
+            <label for="subSkill" class="form-label fw-medium">Sub Skill</label>
+            <select id="subSkill" class="form-control form-select" formControlName="subSkill">
+              <option value="">Select a sub skill option</option>
+              <option *ngFor="let subSkill of filteredSubSkillOptions" [value]="subSkill">{{ subSkill }}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <!-- User Story Reference -->
+          <div class="col-md-6 mb-3">
+            <label for="userStory" class="form-label fw-medium">User Story Reference</label>
+            <input type="text" id="userStory" class="form-control" formControlName="userStory">
+          </div>
+          
+          <!-- Epic Target Structure link -->
+          <div class="col-md-6 mb-3">
+            <label for="epic" class="form-label fw-medium">Epic Link</label>
+            <input type="text" id="epic" class="form-control" formControlName="epic">
+          </div>
+        </div>
+
+        <div class="row">
+          <!-- Priority Options Mapping -->
+          <div class="col-md-4 mb-3">
+            <label for="priority" class="form-label fw-medium">Priority Matrix*</label>
+            <select id="priority" class="form-select" formControlName="priority">
+              <option value="LOW">Low Level Execution</option>
+              <option value="MEDIUM">Medium Priority</option>
+              <option value="HIGH">High Critical Target</option>
+              <option value="CRITICAL">Critical Pipeline Failure Risk</option>
+            </select>
+          </div>
+
+          <!-- Component Mapping Field tags -->
+          <div class="col-md-4 mb-3">
+            <label for="components" class="form-label fw-medium">Affected Components</label>
+            <input type="text" id="components" class="form-control" formControlName="components">
+          </div>
+
+          <!-- Status Dropdown Block Container -->
+          <div class="col-md-4 mb-3">
+            <label for="requirementStatus" class="form-label fw-medium">Workflow Status*</label>
+            <select id="requirementStatus" class="form-select" formControlName="requirementStatus">
+              <option *ngFor="let status of statusOptions" [value]="status">{{ status }}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <!-- Planned Release Date Picker Input -->
+          <div class="col-md-6 mb-3">
+            <label for="plannedReleaseDate" class="form-label fw-medium">Planned Release Date*</label>
+            <input type="date" id="plannedReleaseDate" class="form-control" formControlName="plannedReleaseDate"
+              [ngClass]="{'is-invalid': requirementForm.get('plannedReleaseDate')?.touched && requirementForm.get('plannedReleaseDate')?.invalid}">
+            <div class="invalid-feedback">Planned milestone delivery date context targeting metadata needed.</div>
+          </div>
+
+          <!-- Actual Target Close Date Calendar Picker Input -->
+          <div class="col-md-6 mb-3">
+            <label for="actualReleaseDate" class="form-label fw-medium">Actual Release Date</label>
+            <input type="date" id="actualReleaseDate" class="form-control" formControlName="actualReleaseDate">
+          </div>
+        </div>
+
+        <!-- Submission Trigger Footnote Controls Container layout wrap -->
+        <div class="d-flex justify-content-end gap-2 mt-4 border-top pt-3">
+          <button type="button" class="btn btn-outline-secondary px-4" (click)="navigateBack()">Discard Changes</button>
+          <button type="submit" class="btn btn-primary px-4 fw-medium" [disabled]="requirementForm.invalid">Update Requirement Record</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
+<!-- Inside requirement-edit.component.html or requirement-detail.component.html -->
+<app-requirement-comments [requirementId]="requirementId"></app-requirement-comments>

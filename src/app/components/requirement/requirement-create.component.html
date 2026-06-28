@@ -1,0 +1,98 @@
+<div class="container mt-4">
+  <div class="card shadow">
+    <div class="card-header bg-primary text-white">
+      <h3 class="mb-0">Create New Requirement</h3>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="requirementForm" (ngSubmit)="onSubmit()">
+        
+        <!-- Description -->
+        <div class="mb-3">
+          <label for="description" class="form-label">Description*</label>
+          <textarea id="description" class="form-control" formControlName="description" rows="3"
+            [ngClass]="{'is-invalid': requirementForm.get('description')?.touched && requirementForm.get('description')?.invalid}"></textarea>
+          <div class="invalid-feedback">Description is required (max 500 characters).</div>
+        </div>
+
+        <div class="row">
+          <!-- Skill -->
+          <div class="col-md-6 mb-3">
+           <label for="skill" class="form-label">Core Skill*</label>
+            <select id="skill" class="form-control form-select" formControlName="skill"
+            [ngClass]="{'is-invalid': requirementForm.get('skill')?.touched && requirementForm.get('skill')?.invalid}"
+            (change)="getSubSkill()">
+            <option value="" disabled selected>Select a core skill</option>
+            <option *ngFor="let skill of skillOptions" [value]="skill">{{ skill }}</option>
+            </select>
+            <div class="invalid-feedback">Skill is required.</div>
+        </div>
+          
+          <!-- Sub Skill -->
+          <div class="col-md-6 mb-3">
+           <label for="subSkill" class="form-label">Sub Skill</label>
+            <select id="subSkill" class="form-control form-select" formControlName="subSkill">
+                <option value="" selected>Select a sub skill</option>
+                <option *ngFor="let subSkill of filteredSubSkillOptions" [value]="subSkill">{{ subSkill }}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <!-- User Story -->
+          <div class="col-md-6 mb-3">
+            <label for="userStory" class="form-label">User Story Reference</label>
+            <input type="text" id="userStory" class="form-control" formControlName="userStory">
+          </div>
+          
+          <!-- Epic -->
+          <div class="col-md-6 mb-3">
+            <label for="epic" class="form-label">Epic Link</label>
+            <input type="text" id="epic" class="form-control" formControlName="epic">
+          </div>
+        </div>
+
+        <div class="row">
+          <!-- Priority -->
+          <div class="col-md-4 mb-3">
+            <label for="priority" class="form-label">Priority*</label>
+            <select id="priority" class="form-select" formControlName="priority">
+              <option value="LOW">Low</option>
+              <option value="MEDIUM">Medium</option>
+              <option value="HIGH">High</option>
+              <option value="CRITICAL">Critical</option>
+            </select>
+          </div>
+
+          <!-- Components -->
+          <div class="col-md-4 mb-3">
+            <label for="components" class="form-label">Affected Components</label>
+            <input type="text" id="components" class="form-control" formControlName="components" placeholder="e.g. Auth, UI, DB">
+          </div>
+        </div>
+
+        <div class="row">
+          <!-- Planned Release Date -->
+          <div class="col-md-6 mb-3">
+            <label for="plannedReleaseDate" class="form-label">Planned Release Date*</label>
+            <input type="date" id="plannedReleaseDate" class="form-control" formControlName="plannedReleaseDate"
+              [ngClass]="{'is-invalid': requirementForm.get('plannedReleaseDate')?.touched && requirementForm.get('plannedReleaseDate')?.invalid}">
+            <div class="invalid-feedback">Planned release date is required.</div>
+          </div>
+
+          <!-- Actual Release Date -->
+          <div class="col-md-6 mb-3">
+            <label for="actualReleaseDate" class="form-label">Actual Release Date</label>
+            <input type="date" id="actualReleaseDate" class="form-control" formControlName="actualReleaseDate">
+          </div>
+        </div>
+
+        <!-- Form Actions -->
+        <div class="d-flex justify-content-end gap-2 mt-3">
+          <button type="button" class="btn btn-secondary">Cancel</button>
+          <button type="submit" class="btn btn-success" [disabled]="requirementForm.invalid">Save Requirement</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>

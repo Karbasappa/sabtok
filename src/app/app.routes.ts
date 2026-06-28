@@ -7,6 +7,9 @@ import { TopicListComponent } from './components/topic/topic.list.component';
 import { SubtopicEditorComponent } from './components/topic/subtopic/subtopic-editor.component';
 import { SkillsDashboardComponent } from './components/skills/skills-dashboard.component';
 import { CreateSubTopicComponent } from './components/topic/subtopic/create-subtopic.component';
+import { RequirementCreateComponent } from './components/requirement/requirement-create.component';
+import { RequirementListComponent } from './components/requirement/requirement-list.component';
+import { RequirementEditComponent } from './components/requirement/requirement-edit.component';
 
 
 export const routes: Routes = [
@@ -19,5 +22,8 @@ export const routes: Routes = [
   {path:'topic/create',component:CreateTopicComponent},
   {path:'topics',component:SkillsDashboardComponent},
   {path: 'topic/edit-subtopic/:id', component: SubtopicEditorComponent },
-  {path:'crete-subtopic', component: CreateSubTopicComponent}
+  {path:'crete-subtopic', component: CreateSubTopicComponent},
+  {path:'create-requirement', component: RequirementCreateComponent},
+  {path:'requirements', component: RequirementListComponent},
+  { path: 'requirements/edit/:id', component: RequirementEditComponent }
 ];

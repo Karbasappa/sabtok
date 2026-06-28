@@ -1,0 +1,89 @@
+<div class="container-fluid mt-4">
+  <div class="card shadow-sm border-0">
+    
+    <!-- Header Block Component Section -->
+    <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center py-3">
+      <h4 class="mb-0 m-0 p-0 text-uppercase tracking-wider">📋 Requirement Board</h4>
+      <button class="btn btn-sm btn-success px-3 fw-bold" [routerLink]="['/create-requirement']" >+ Add Requirement</button>
+    </div>
+
+    <!-- Management Action Controls Strip -->
+    <div class="card-body bg-light border-bottom">
+      <div class="row align-items-center">
+        <div class="col-md-4">
+          <div class="input-group">
+            <span class="input-group-text bg-white border-end-0">🔍</span>
+            <input type="text" class="form-control border-start-0 ps-0" 
+                   placeholder="Search ID, description or skill set..." 
+                   [(ngModel)]="searchTerm" (input)="filterResults()">
+          </div>
+        </div>
+        <div class="col text-end text-muted small fw-semibold">
+          Active Records Count: {{ filteredRequirements.length }}
+        </div>
+      </div>
+    </div>
+
+    <!-- Core Dynamic Data Grid Interface Wrapper -->
+    <div class="table-responsive" style="max-height: 65vh; overflow-y: auto;">
+      <table class="table table-hover align-middle mb-0 text-nowrap">
+        <thead class="table-secondary sticky-top top-0 shadow-sm z-1">
+          <tr>
+            <th scope="col" class="ps-3">ID</th>
+            <th scope="col" style="min-width: 250px;">Description</th>
+            <th scope="col">Tech Skill Mapping</th>
+            <th scope="col">Sub-Skill</th>
+            <th scope="col">Story Reference</th>
+            <th scope="col">Priority</th>
+            <th scope="col">Target Date</th>
+            <th scope="col">System Status</th>
+            <th scope="col" class="text-center pe-3">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Dynamic Iteration Data Stream Loop Row Context -->
+          <tr *ngFor="let req of filteredRequirements">
+            <td class="ps-3 fw-bold text-primary">#{{ req.id }}</td>
+            <td class="text-truncate" style="max-width: 300px;" [title]="req.description">
+              {{ req.description }}
+            </td>
+            <td><span class="badge bg-dark-subtle text-dark border px-2 py-1.5">{{ req.skill }}</span></td>
+            <td class="text-muted fst-italic small">{{ req.subSkill || '--' }}</td>
+            <td>
+              <span class="fw-medium text-secondary small">{{ req.userStory || '--' }}</span>
+              <div class="text-muted extra-small font-monospace" style="font-size: 0.75rem;">{{ req.epic }}</div>
+            </td>
+            <td>
+              <span class="badge" [ngClass]="getPriorityBadgeClass(req.priority || '')">
+                {{ req.priority }}
+              </span>
+            </td>
+            <td>
+              <div class="small fw-semibold">{{ req.plannedReleaseDate }}</div>
+              <div class="text-muted small" style="font-size: 0.75rem;">Updated: {{ req.updatedAt | date:'shortTime' }}</div>
+            </td>
+            <td>
+              <span class="badge rounded-pill" [ngClass]="getStatusBadgeClass(req.requirementStatus || '')">
+                {{ req.requirementStatus }}
+              </span>
+            </td>
+            <td class="text-center pe-3">
+              <div class="btn-group btn-group-sm shadow-xs">
+                <button class="btn btn-outline-primary" (click)="onEdit(req.id!)" title="Edit Item">✏️</button>
+                <button class="btn btn-outline-danger" (click)="onDelete(req.id!)" title="Delete Item">🗑️</button>
+              </div>
+            </td>
+          </tr>
+          
+          <!-- State Case Validation Empty Fallback Block Trigger -->
+          <tr *ngIf="filteredRequirements.length === 0">
+            <td colspan="9" class="text-center py-5 text-muted">
+              <div class="fs-4 mb-2">🔍 No Requirements Located</div>
+              <p class="small mb-0">Try clearing active pipeline query filters or inject raw entities manually above.</p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

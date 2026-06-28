@@ -1,0 +1,48 @@
+<div class="card mt-4 border-light shadow-sm">
+  <div class="card-header bg-light border-bottom py-3">
+    <h5 class="mb-0 text-secondary fs-6 text-uppercase tracking-wider fw-bold">💬 Discussion & Activity Audit Logs</h5>
+  </div>
+  
+  <div class="card-body">
+    <!-- Existing Comments Dynamic Execution Loop Stream -->
+    <div class="comments-stream-container mb-4" style="max-height: 350px; overflow-y: auto;">
+      <div *ngFor="let c of commentsList" class="p-3 mb-2 rounded border bg-white shadow-xs position-relative">
+        <div class="d-flex justify-content-between align-items-center mb-1">
+          <span class="fw-bold small text-primary">#System Contributor</span>
+          <span class="text-muted extra-small font-monospace">{{ c.createdAt | date:'medium' ?? 'Just Now' }}</span>
+        </div>
+        <p class="mb-0 text-dark small text-break" style="white-space: pre-wrap;">{{ c.comment }}</p>
+      </div>
+
+      <!-- State Checking Verification Fallback Placeholder UI block -->
+      <div *ngIf="commentsList.length === 0" class="text-center py-4 text-muted border border-dashed rounded bg-white">
+        <p class="small mb-0">No context logs associated yet. Start the workspace conversation below.</p>
+      </div>
+    </div>
+
+    <!-- Active Inline Entry Form Composition Component block layout layer -->
+    <form [formGroup]="commentForm" (ngSubmit)="onAddComment()" class="border-top pt-3">
+      <div class="mb-3">
+        <label for="newCommentText" class="form-label small fw-semibold text-muted">Add Note / Comment</label>
+        <textarea 
+          id="newCommentText" 
+          class="form-control form-control-sm" 
+          formControlName="comment" 
+          rows="3" 
+          placeholder="Type update message details here..."
+          [ngClass]="{'is-invalid': commentForm.get('comment')?.touched && commentForm.get('comment')?.invalid}">
+        </textarea>
+        <div class="invalid-feedback extra-small">Comments require valid character entries (max 1000 characters).</div>
+      </div>
+
+      <div class="d-flex justify-content-end">
+        <button 
+          type="submit" 
+          class="btn btn-sm btn-primary px-4 fw-medium" 
+          [disabled]="commentForm.invalid || isSubmitting">
+          {{ isSubmitting ? 'Posting...' : 'Post Comment' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

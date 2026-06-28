@@ -20,7 +20,9 @@ export interface Requirement {
 
 export enum RequirementStatus {
     OPEN,
-    IN_PROGRESS,
-    REVIEW,
-    DONE
+    ANALYSIS,
+    PROGRESS,
+    RELEASED,
+    CLOSED,
+    HOLD
 }

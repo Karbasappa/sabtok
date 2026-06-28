@@ -61,10 +61,10 @@
           <div class="col-md-4 mb-3">
             <label for="priority" class="form-label fw-medium">Priority Matrix*</label>
             <select id="priority" class="form-select" formControlName="priority">
-              <option value="LOW">Low Level Execution</option>
-              <option value="MEDIUM">Medium Priority</option>
-              <option value="HIGH">High Critical Target</option>
-              <option value="CRITICAL">Critical Pipeline Failure Risk</option>
+              <option value="LOW">LOW</option>
+              <option value="MEDIUM">MEDIUM</option>
+              <option value="HIGH">HIGH</option>
+              <option value="CRITICAL">CRITICAL</option>
             </select>
           </div>
 
@@ -102,7 +102,7 @@
         <!-- Submission Trigger Footnote Controls Container layout wrap -->
         <div class="d-flex justify-content-end gap-2 mt-4 border-top pt-3">
           <button type="button" class="btn btn-outline-secondary px-4" (click)="navigateBack()">Discard Changes</button>
-          <button type="submit" class="btn btn-primary px-4 fw-medium" [disabled]="requirementForm.invalid">Update Requirement Record</button>
+          <button type="submit" class="btn btn-primary px-4 fw-medium" [disabled]="requirementForm.invalid" (click)="onSubmit()">Update Requirement Record</button>
         </div>
 
       </form>

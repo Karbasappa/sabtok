@@ -110,6 +110,11 @@ export class RequirementEditComponent implements OnInit {
       
       console.log('Sending PUT payload updates to backend API:', updatedRequirement);
       // TODO: Connect to backend Service: this.requirementService.update(this.requirementId, updatedRequirement).subscribe(...)
+
+       this.rm.postStringData('api/v1/requirements/save', JSON.stringify(updatedRequirement))
+      .subscribe(res => {
+        alert('saved')
+      })
       
       this.navigateBack();
     } else {
@@ -120,4 +125,5 @@ export class RequirementEditComponent implements OnInit {
   navigateBack(): void {
     this.router.navigate(['/requirements']);
   }
+
 }

@@ -25,6 +25,7 @@
           <div class="col-md-6 mb-3">
             <label for="skill" class="form-label fw-medium">Core Skill*</label>
             <select id="skill" class="form-control form-select" formControlName="skill"
+             (change)="getSubSkill()"
               [ngClass]="{'is-invalid': requirementForm.get('skill')?.touched && requirementForm.get('skill')?.invalid}">
               <option value="" disabled>Select a core skill mapping</option>
               <option *ngFor="let skill of skillOptions" [value]="skill">{{ skill }}</option>
@@ -37,7 +38,7 @@
             <label for="subSkill" class="form-label fw-medium">Sub Skill</label>
             <select id="subSkill" class="form-control form-select" formControlName="subSkill">
               <option value="">Select a sub skill option</option>
-              <option *ngFor="let subSkill of filteredSubSkillOptions" [value]="subSkill">{{ subSkill }}</option>
+              <option *ngFor="let subSkill of subSkillMapping" [value]="subSkill">{{ subSkill }}</option>
             </select>
           </div>
         </div>

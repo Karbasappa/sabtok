@@ -18,13 +18,9 @@ export class RequirementEditComponent implements OnInit {
   requirementId!: string;
   statusOptions: RequirementStatus[] = Object.values(RequirementStatus) as RequirementStatus[];
   
-  skillOptions: string[] = ['Java', 'Angular', 'Python'];
-  subSkillMapping: { [key: string]: string[] } = {
-    'Java': ['Spring Boot', 'Hibernate', 'Microservices', 'JDBC'],
-    'Angular': ['RxJS', 'NgRx', 'Angular Material', 'Directives'],
-    'Python': ['Django', 'Flask', 'FastAPI', 'Pandas']
-  };
-  filteredSubSkillOptions: string[] = [];
+  skillOptions: string[] = [];
+  subSkillMapping: string[] = [];
+
 
   constructor(
     private fb: FormBuilder,
@@ -34,8 +30,13 @@ export class RequirementEditComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+     this.rm.getData('skill/names').subscribe( res => {
+        this.skillOptions = res;
+    })
+
+   // this.getSubSkill();
     this.initForm();
-    this.trackSkillChanges();
+ 
     
     // Extract ID from routing parameters
     this.requirementId = this.route.snapshot.paramMap.get('id') ?? '';
@@ -60,17 +61,10 @@ export class RequirementEditComponent implements OnInit {
     });
   }
 
-  private trackSkillChanges(): void {
-    this.requirementForm.get('skill')?.valueChanges.subscribe((selectedSkill: string) => {
-      this.filteredSubSkillOptions = this.subSkillMapping[selectedSkill] || [];
-    });
-  }
-
   private loadRequirementData(id: string): void {
 
     this.rm.getData('api/v1/requirements/'+id).subscribe(res => {
           // Populate dynamic subskill collection prior to patching value form states
-    this.filteredSubSkillOptions = this.subSkillMapping[res.skill] || [];
 
     // Map fetched records to target active fields group
     this.requirementForm.patchValue(res);
@@ -124,6 +118,13 @@ export class RequirementEditComponent implements OnInit {
 
   navigateBack(): void {
     this.router.navigate(['/requirements']);
+  }
+
+   getSubSkill() {
+    const skill = this.requirementForm.get('skill')?.value;
+    this.rm.getData('skill/subskill/names/'+skill).subscribe( res => {
+        this.subSkillMapping = res;
+    })
   }
 
 }

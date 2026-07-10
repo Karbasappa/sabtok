@@ -71,7 +71,10 @@ export class CreateTopicComponent implements OnInit {
 
   addTemplate() {
     const templates: SubTopic[] = [
-      { name: 'Generics and Type Erasure', notes: 'Understand how generics work and their runtime limitations.' },
+      {
+        name: 'Generics and Type Erasure', notes: 'Understand how generics work and their runtime limitations.',
+        status: ""
+      },
     ];
     templates.forEach(t => this.addSubtopic(t));
   }

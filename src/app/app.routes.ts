@@ -10,6 +10,7 @@ import { CreateSubTopicComponent } from './components/topic/subtopic/create-subt
 import { RequirementCreateComponent } from './components/requirement/requirement-create.component';
 import { RequirementListComponent } from './components/requirement/requirement-list.component';
 import { RequirementEditComponent } from './components/requirement/requirement-edit.component';
+import { SubtaskPracticeComponent } from './components/practice/subtask.practice.component';
 
 
 export const routes: Routes = [
@@ -25,5 +26,6 @@ export const routes: Routes = [
   {path:'crete-subtopic', component: CreateSubTopicComponent},
   {path:'create-requirement', component: RequirementCreateComponent},
   {path:'requirements', component: RequirementListComponent},
-  { path: 'requirements/edit/:id', component: RequirementEditComponent }
+  { path: 'requirements/edit/:id', component: RequirementEditComponent },
+  {path:'practice', component: SubtaskPracticeComponent}
 ];

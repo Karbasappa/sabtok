@@ -1,4 +1,5 @@
 export interface SubTopic {
+  status: string;
   id?: number;
   name: string;
   topicId?: number;       // Matches Long topicId

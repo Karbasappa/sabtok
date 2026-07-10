@@ -1,0 +1,46 @@
+<div class="practice-container">
+    <h2>Practice Subtask Dashboard</h2>
+
+    <div class="dropdown-group">
+        <!-- 1. Skill Dropdown -->
+        <div class="select-box">
+            <label>Main Skill</label>
+            <select (change)="getTopics($any($event.target).value)">
+                <option value="" disabled selected>-- Choose Skill --</option>
+                <option *ngFor="let skill of skills" [value]="skill.mainSkill">
+                    {{ skill.mainSkill }}
+                </option>
+            </select>
+        </div>
+
+        <!-- 2. Topic Dropdown -->
+        <div class="select-box">
+            <label>Topic</label>
+            <select (change)="getSubTopics($any($event.target).value)">
+                <option value="" disabled selected>-- Choose Topic --</option>
+                <option *ngFor="let t of topics" [value]="t.id">
+                    {{ t.name }}
+                </option>
+            </select>
+        </div>
+
+        <!-- 3. Subtopic Dropdown (Uses direct object selection via ngValue) -->
+        <div class="select-box" *ngIf="topic">
+            <label>Subtopic Subtask</label>
+            <select [(ngModel)]="selectedSubTopic" (ngModelChange)="selectedSubTopic && editSubtopic(selectedSubTopic)">
+                <option [ngValue]="null" disabled selected>-- Choose Subtopic to Edit --</option>
+                <option *ngFor="let subTopic of topic?.subTopicSet" [ngValue]="subTopic">
+                    {{ subTopic.name }}
+                </option>
+            </select>
+        </div>
+    </div>
+
+    <!-- 4. Interactive Child Form -->
+    <div class="form-display-area" *ngIf="selectedSubTopic">
+        <app-editable-subtopic 
+            [subtopic]="selectedSubTopic" 
+            (saveUpdate)="onSubtopicSaved($event)">
+        </app-editable-subtopic>
+    </div>
+</div>

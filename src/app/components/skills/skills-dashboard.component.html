@@ -51,7 +51,7 @@
             <p class="timestamp">Updated: {{ topic.updatedAt | date:'short' }}</p>
 
             <div class="subtopics-box">
-              <h5>Subtopics ({{ topic.subTopicSet?.length || 0 }})</h5>
+              <h5>Subtopics ({{ topic.subTopicSet?.length || 0 }}) <span  class="subtopic-item subtopic-link" >attempt</span></h5>
               
               <!-- FIXED: Turned subtopic item card into an interactive editing hyperlink link -->
               <div class="subtopic-item subtopic-link" 

@@ -1,0 +1,71 @@
+<div class="grid-container">
+  <table class="skill-table">
+    <thead>
+      <tr>
+        <th width="5%"></th>
+        <th>Topic Name</th>
+        <th>Main Skill</th>
+        <th>Last Updated</th>
+        <th>Status</th>
+        <th>Subtopics Count</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let topic of topics">
+        <!-- Main Topic Row -->
+        <tr class="main-row" (click)="toggleRow(topic.id)" [class.active]="isRowExpanded(topic.id)">
+          <td>
+            <span class="arrow-icon" [class.rotated]="isRowExpanded(topic.id)">▶</span>
+          </td>
+          <td><strong>{{ topic.name | titlecase }}</strong></td>
+          <td><span class="badge shadow">{{ topic.skillname | uppercase }}</span></td>
+          <td>{{ topic.updatedat | date:'medium' }}</td>
+          <td>
+            <span class="status-dot" [class.active-status]="topic.status === 'a'"></span>
+            {{ topic.status === 'a' ? 'Active' : 'Inactive' }}
+          </td>
+          <td>{{ topic.subtopicset?.length || 0 }} subtopics</td>
+        </tr>
+
+        <!-- Nested Subtopics Row -->
+        <tr *ngIf="isRowExpanded(topic.id)" class="subtopic-row-container">
+          <td colspan="6">
+            <div class="subtopic-wrapper">
+              <h4 class="subtopic-title">Subtopics Breakdown</h4>
+              
+              <table class="subtopic-table" *ngIf="topic.subtopicset?.length; else noSubtopics">
+                <thead>
+                  <tr>
+                    <th>Subtopic ID</th>
+                    <th>Subtopic Name</th>
+                    <th>Attempts</th>
+                    <th>Passed / Failed</th>
+                    <th>Success Rate</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let sub of topic.subtopicset">
+                    <td>#{{ sub.id }}</td>
+                    <td>{{ sub.name }}</td>
+                    <td>{{ sub.noofattempts ?? 0 }}</td>
+                    <td>
+                      <span class="text-success">{{ sub.passednumber ?? 0 }}</span> / 
+                      <span class="text-danger">{{ sub.failednumber ?? 0 }}</span>
+                    </td>
+                    <td>
+                      <span class="rate-badge">{{ getSuccessRate(sub) }}</span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <ng-template #noSubtopics>
+                <p class="no-data-msg">No subtopics available for this category.</p>
+              </ng-template>
+            </div>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,131 @@
+.grid-container {
+  width: 100%;
+  overflow-x: auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 20px 0;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  border-radius: 8px;
+}
+
+.skill-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #ffffff;
+  text-align: left;
+}
+
+.skill-table th {
+  background-color: #f4f6f9;
+  color: #333333;
+  padding: 14px;
+  font-weight: 600;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.main-row {
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  border-bottom: 1px solid #edf2f7;
+}
+
+.main-row:hover {
+  background-color: #f8fafc;
+}
+
+.main-row.active {
+  background-color: #f1f5f9;
+}
+
+.main-row td {
+  padding: 14px;
+  color: #4a5568;
+}
+
+.arrow-icon {
+  display: inline-block;
+  transition: transform 0.2s ease;
+  font-size: 0.75rem;
+  color: #a0aec0;
+}
+
+.arrow-icon.rotated {
+  transform: rotate(90deg);
+  color: #4a5568;
+}
+
+.badge {
+  background-color: #e2e8f0;
+  color: #4a5568;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.status-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background-color: #cbd5e1;
+  border-radius: 50%;
+  margin-right: 6px;
+}
+
+.status-dot.active-status {
+  background-color: #10b981;
+}
+
+/* Expandable Block Details */
+.subtopic-row-container {
+  background-color: #fdfdfd;
+}
+
+.subtopic-wrapper {
+  padding: 20px;
+  border-left: 4px solid #3b82f6;
+  background-color: #f8fafc;
+}
+
+.subtopic-title {
+  margin: 0 0 12px 0;
+  color: #1e3a8a;
+  font-size: 0.95rem;
+}
+
+.subtopic-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+}
+
+.subtopic-table th {
+  padding: 8px 12px;
+  font-size: 0.85rem;
+  background-color: #edf2f7;
+}
+
+.subtopic-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #edf2f7;
+  color: #4a5568;
+}
+
+.text-success { color: #16a34a; font-weight: bold; }
+.text-danger { color: #dc2626; font-weight: bold; }
+
+.rate-badge {
+  background-color: #f0fdf4;
+  color: #16a34a;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.no-data-msg {
+  color: #718096;
+  font-style: italic;
+  margin: 0;
+}

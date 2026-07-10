@@ -9,7 +9,7 @@
       <div *ngFor="let c of commentsList" class="p-3 mb-2 rounded border bg-white shadow-xs position-relative">
         <div class="d-flex justify-content-between align-items-center mb-1">
           <span class="fw-bold small text-primary">#System Contributor</span>
-          <span class="text-muted extra-small font-monospace">{{ c.createdAt | date:'medium' ?? 'Just Now' }}</span>
+          <span class="text-muted extra-small font-monospace">{{ c.createdAt ? (c.createdAt | date:'medium') : 'Just Now' }}</span>
         </div>
         <p class="mb-0 text-dark small text-break" style="white-space: pre-wrap;">{{ c.comment }}</p>
       </div>

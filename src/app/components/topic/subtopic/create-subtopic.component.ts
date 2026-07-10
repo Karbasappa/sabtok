@@ -15,12 +15,7 @@ export class CreateSubTopicComponent {
 
     topicNames:Record<string, number> = {};
 
-     topic: SubTopic = {
-    name: 'string reverse',
-    topicId: 0,
-    noOfAttempts: 0,
-    passedNumber: 0,
-  };
+     topic: SubTopic = {} as SubTopic;
 
   constructor(private remoteService: RemoteCallService) {}
 

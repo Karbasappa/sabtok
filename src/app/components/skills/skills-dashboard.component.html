@@ -34,7 +34,7 @@
           <div class="topic-card-header" (click)="toggleTopic(topic.id)" role="button" tabindex="0">
             <div class="title-area">
               <span class="chevron"></span>
-              <h4>{{ topic.name }}</h4>
+              <h4>{{ topic.name }}  </h4>
               
               <div class="topic-rating" *ngIf="getTopicRating(topic) > 0">
                 <span class="stars inline-stars">
@@ -51,7 +51,7 @@
             <p class="timestamp">Updated: {{ topic.updatedAt | date:'short' }}</p>
 
             <div class="subtopics-box">
-              <h5>Subtopics ({{ topic.subTopicSet?.length || 0 }}) <span  class="subtopic-item subtopic-link" >attempt</span></h5>
+              <h5>Subtopics ({{ topic.subTopicSet?.length || 0 }})</h5>
               
               <!-- FIXED: Turned subtopic item card into an interactive editing hyperlink link -->
               <div class="subtopic-item subtopic-link" 
@@ -61,7 +61,7 @@
                    title="Click to edit this subtopic"
                    tabindex="0">
                 <div class="subtopic-main">
-                  <span class="subtopic-name-link">{{ sub.name }} <span class="edit-icon">✎</span></span>
+                  <span class="subtopic-name-link"><u>{{ sub.name }}</u> {{ sub.category }}  <span class="edit-icon">✎</span></span>
                   <span class="rating" *ngIf="sub.rating">★ {{ sub.rating }}/5</span>
                 </div>
                 

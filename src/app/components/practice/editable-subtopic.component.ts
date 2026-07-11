@@ -16,7 +16,11 @@ export class EditableSubtopicComponent implements OnInit {
   @Output() saveUpdate = new EventEmitter<SubTopic>();
 
   editForm!: FormGroup;
+  attemptsForm!: FormGroup;
   isEditing = false;
+  attemptsTypes = ['CODE_PRACTICE', 'THEORY', 'EXAM', 'REVIEW'];
+  results = ['PASS', 'PARTIAL_SUCCESS', 'FAIL'];
+  attemptsList : any[] = [];
 
   constructor(private fb: FormBuilder, private rm: RemoteCallService) {}
 
@@ -33,6 +37,15 @@ export class EditableSubtopicComponent implements OnInit {
       failedNumber: [this.subtopic.failedNumber || 0, [Validators.min(0)]],
       notes: [this.subtopic.notes || ''],
       rating: [this.subtopic.rating || 0, [Validators.min(0), Validators.max(5)]]
+    });
+
+    // 🔴 NEW: Setup attemptsForm controls to match your HTML template properties
+    this.attemptsForm = this.fb.group({
+      type: ['', [Validators.required]],
+      result: ['', [Validators.required]],
+      marksScored: [''],
+      totalMarks: [''],
+      comments: ['']
     });
   }
 
@@ -68,5 +81,35 @@ export class EditableSubtopicComponent implements OnInit {
     });
     //this.saveUpdate.emit(updatedRecord);
     this.isEditing = false;
+  }
+
+  addAttempts() {
+    if (this.attemptsForm.invalid) return;
+
+    const newAttempt = {
+      subTopicId: this.subtopic.id,
+      attemptsType: this.attemptsForm.value.type,
+      result: this.attemptsForm.value.result,
+      marksScored: this.attemptsForm.value.marksScored,
+      totalMarks: this.attemptsForm.value.totalMarks,
+      comments: this.attemptsForm.value.comments
+    };
+    this.rm.postStringData('topic/subtopic/attempts/save', JSON.stringify(newAttempt)).subscribe({
+      next: (response) => {
+        alert('Attempt added successfully:');
+        // Optionally, you can reset the form or update the UI here
+        this.attemptsForm.reset();
+      }
+    });
+  }
+
+  getAttemptList() {
+    this.rm.getData(`topic/attempts/${this.subtopic.id}`).subscribe({
+      next: (response) => {
+        this.attemptsList = response;
+        console.log('Attempt list:', this.attemptsList);
+        // You can handle the response to display the attempts in the UI
+      }
+    });
   }
 }

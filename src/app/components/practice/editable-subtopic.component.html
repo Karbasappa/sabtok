@@ -63,4 +63,53 @@
       <button type="submit" class="btn btn-save" [disabled]="editForm.invalid" (click)="onSubmit()">Save Changes</button>
     </div>
   </form>
-</div>
+
+  <form [formGroup]="attemptsForm" (ngSubmit)="addAttempts()">
+    <div class="form-group">
+      <label for="attempts">Attempt Type</label>
+      <select id="attempts" formControlName="type" class="form-control">
+        <option value="">Select Attempt Type</option>
+        <option *ngFor="let type of attemptsTypes" [value]="type">{{ type }}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="result">Result</label>
+      <select id="result" formControlName="result" class="form-control">
+        <option value="">Select Result</option>
+        <option *ngFor="let result of results" [value]="result">{{ result }}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="totalMarks">Total Marks</label>
+      <input type="number" id="totalMarks" formControlName="totalMarks" class="form-control" placeholder="Enter total marks">
+    </div>
+    <div class="form-group">
+      <label for="marksScored">Marks Scored</label>
+      <input type="number" id="marksScored" formControlName="marksScored" class="form-control" placeholder="Enter marks scored">
+    </div>
+    <div class="form-group">
+      <label for="comments">Comments</label>
+      <textarea id="comments" formControlName="comments" rows="3" class="form-control" placeholder="Add setup details..."></textarea>
+    </div>
+    <div class="actions">
+      <button type="submit" class="btn btn-save" [disabled]="attemptsForm.invalid">Add Attempt</button>   
+    </div>
+  </form>
+    <!-- Add the btn-fetch utility class to your getter button -->
+  <button class="btn-fetch" (click)="getAttemptList()">🔄 Sync Attempt History</button>
+  
+  <div *ngIf="attemptsList && attemptsList.length > 0">
+    <h4>Attempts History Log</h4>
+    <ul class="attempt-list">
+      <!-- Dynamic status coloring based on result profile -->
+      <li *ngFor="let attempt of attemptsList" 
+          class="attempt-item"
+          [class.pass]="attempt.result?.toUpperCase() === 'PASS'"
+          [class.fail]="attempt.result?.toUpperCase() === 'FAIL'">
+        <span><strong>{{ attempt.attemptsType }}</strong> — {{ attempt.comments }}</span>
+        <span>Score: <strong>{{ attempt.marksScored }}/{{ attempt.totalMarks }}</strong></span>
+        <span>Attempted Date: <strong>{{ attempt.createdAt | date:'short' }}</strong></span>
+      </li>
+    </ul>
+  </div>
+

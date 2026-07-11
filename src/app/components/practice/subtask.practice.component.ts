@@ -10,7 +10,8 @@ import { SubTopic } from "../../models/sub-topic";
     selector: 'app-subtask-practice',
     templateUrl: './subtask.practice.component.html',
     standalone: true,
-    imports: [CommonModule, FormsModule, EditableSubtopicComponent]
+    imports: [CommonModule, FormsModule, EditableSubtopicComponent],
+    styleUrls: ['./subtask.practice.component.css']
 })
 export class SubtaskPracticeComponent implements OnInit {
     public skills: any[] = [];

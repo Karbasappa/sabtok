@@ -234,3 +234,74 @@ h4 {
 
 .attempt-item.pass { border-left-color: #10b981; }
 .attempt-item.fail { border-left-color: #ef4444; }
+
+/* Header Elements & Layout */
+.header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #f3f4f6;
+  padding-bottom: 16px;
+  margin-bottom: 20px;
+}
+
+.header-row h3 {
+  margin: 0;
+  color: #1f2937;
+  font-size: 1.35rem;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap; /* Wraps cleanly to a new line on smaller phone displays */
+  gap: 8px; /* Adds consistent spacing between the text and badges */
+}
+
+/* Category Badge Styling (Clean Minimal Blue look) */
+.category-badge {
+  background: #eff6ff;
+  color: #1d4ed8;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 9999px; /* Complete pill-shape radius */
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  border: 1px solid #bfdbfe;
+}
+
+/* Priority Badge Base Style */
+.priority-badge {
+  background: #fdf2f8;
+  color: #be185d;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  border: 1px solid #fbcfe8;
+}
+
+/* Unique Primary Record Identifier Tag */
+.id-badge {
+  background: #f3f4f6;
+  color: #6b7280;
+  font-size: 0.8rem;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.btn-edit {
+  background: #f3f4f6;
+  color: #374151;
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  border-radius: 8px;
+  cursor: pointer;
+  border: none;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+.btn-edit:hover { background: #e5e7eb; }
+

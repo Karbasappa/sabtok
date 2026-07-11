@@ -61,7 +61,9 @@ export class CreateTopicComponent implements OnInit {
       noOfAttempts: [s?.noOfAttempts ?? '', Validators.maxLength(2000)],
       passedNumber: [s?.passedNumber ?? '', Validators.maxLength(2000)],
       failedNumber: [s?.failedNumber ?? '', Validators.maxLength(2000)],
-      rating: [s?.rating ?? '', Validators.maxLength(2000)]
+      rating: [s?.rating ?? '', Validators.maxLength(2000)],
+      priority: [s?.priority ?? '', Validators.maxLength(2000)],
+      category: [s?.category ?? '', Validators.maxLength(2000)]
     });
   }
 

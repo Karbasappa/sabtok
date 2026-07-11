@@ -2,9 +2,22 @@
   <!-- Read-Only Mode View -->
   <div *ngIf="!isEditing" class="view-mode">
     <div class="header-row">
-      <h3>{{ subtopic.name  }} <span class="id-badge">#{{ subtopic.id }}</span></h3>
-      <button class="btn btn-edit" (click)="toggleEdit()">✏️ Edit</button>
-    </div>
+  <h3>
+    <!-- Plain text label -->
+    <span>{{ subtopic.name }}</span> 
+    
+    <!-- Conditional Category Tag -->
+    <span class="category-badge" *ngIf="subtopic.category">{{ subtopic.category }}</span> 
+    
+    <!-- Conditional Priority Tag -->
+    <span class="priority-badge" *ngIf="subtopic.priority">⚠️ {{ subtopic.priority }}</span> 
+    
+    <!-- Primary Record ID Key -->
+    <span class="id-badge">#{{ subtopic.id }}</span>
+  </h3>
+  
+  <button class="btn btn-edit" (click)="toggleEdit()">✏️ Edit</button>
+</div>
     
     <div class="info-grid">
       <div class="data-box"><strong>Attempts:</strong> {{ subtopic.noOfAttempts ?? 0 }}</div>

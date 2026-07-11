@@ -5,6 +5,25 @@
             {{ topic.value }}
         </option>
     </select>
+  
+      <label for="priority">Priority</label>
+      <select id="priority" [(ngModel)]="topic.priority" name="priority" required>
+        <option value="">Select Priority</option>
+        <option value="HIGH">High</option>
+        <option value="MEDIUM">Medium</option>
+        <option value="LOW">Low</option>
+      </select>
+ 
+
+    
+      <label for="category">Category</label>
+      <select id="category" [(ngModel)]="topic.category" name="category" required>
+        <option value="">Select Category</option>
+        <option value="THEORY">Theory</option>
+        <option value="PRACTICAL">Coding</option>
+        <option value="EXAM">Walkthrough</option>
+        </select>
+   
     <input type="text" [(ngModel)]="topic.name" name="name" placeholder="Subtopic Name" required>
     <textarea [(ngModel)]="topic.notes" name="notes" placeholder="Subtopic Notes" required>
 

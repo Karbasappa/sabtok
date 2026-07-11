@@ -88,6 +88,8 @@ export class SubtopicEditorComponent implements OnChanges, OnInit {
       passedNumber: [null, [Validators.min(0)]],
       failedNumber: [null, [Validators.min(0)]],
       notes: [''],
+      priority: [''],
+      category: [''],
       rating: [null, [Validators.min(0), Validators.max(5)]]
     });
   }

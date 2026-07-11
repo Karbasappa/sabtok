@@ -15,6 +15,26 @@
     </div>
 
     <div class="col">
+      <label for="priority">Priority</label>
+      <select id="priority" formControlName="priority">
+        <option value="">Select Priority</option>
+        <option value="HIGH">High</option>
+        <option value="MEDIUM">Medium</option>
+        <option value="LOW">Low</option>
+      </select>
+    </div>
+
+    <div class="col">
+      <label for="category">Category</label>
+      <select id="category" formControlName="category">
+        <option value="">Select Category</option>
+        <option value="THEORY">Theory</option>
+        <option value="PRACTICAL">Coding</option>
+        <option value="EXAM">Walkthrough</option>
+        </select>
+    </div>
+
+    <div class="col">
       <label for="noOfAttempts">No. of Attempts</label>
       <input id="noOfAttempts" formControlName="noOfAttempts" type="number" min="0" />
     </div>

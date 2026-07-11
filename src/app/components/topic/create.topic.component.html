@@ -37,15 +37,22 @@
         <div class="error" *ngIf="sub.get('name')?.invalid && (sub.get('name')?.touched || sub.get('name')?.dirty)">
           <div *ngIf="sub.get('name')?.errors?.['required']">Name required.</div>
         </div>
-
-        <label>No of Attempts</label>
-        <input formControlName="noOfAttempts" type="text"/>
-        <label>Passed</label>
-        <input formControlName="passedNumber" type="text"/>
-        <label>Failed</label>
-        <input formControlName="failedNumber" type="text"  />
-        <label>Rating</label>
-        <input formControlName="rating" type="text" />
+        
+          <label for="priority">Priority</label>
+          <select id="priority" formControlName="priority">
+            <option value="">Select Priority</option>
+            <option value="HIGH">High</option>
+            <option value="MEDIUM">Medium</option>
+            <option value="LOW">Low</option>
+          </select>
+        
+          <label for="category">Category</label>
+          <select id="category" formControlName="category">
+            <option value="">Select Category</option>
+            <option value="THEORY">Theory</option>
+            <option value="PRACTICAL">Coding</option>
+            <option value="EXAM">Walkthrough</option>
+            </select>
          <label>Notes <span class="optional">(optional)</span></label>
         <textarea formControlName="notes" rows="2" placeholder="Short notes..."></textarea>
       </div>
